@@ -42,14 +42,15 @@ class Auth with ChangeNotifier {
           }));
       final responseData = json.decode(res.body);
       if (responseData['error'] != null) {
-         throw HttpExptions(responseData['error']['message']);
+        throw HttpExptions(responseData['error']['message']);
       }
 
       _token = responseData['idToken'];
       _userId = responseData['localId'];
       _expireDate = DateTime.now()
           .add(Duration(seconds: int.parse(responseData['expiresIn'])));
-      aotoLogOut();
+      print('_expireDate : ' + _expireDate.toString() +' : _expireDate');
+     aotoLogOut();
       notifyListeners();
       final prefs = await SharedPreferences.getInstance();
       String userData = json.encode({
@@ -84,11 +85,12 @@ class Auth with ChangeNotifier {
     _userId = extractedData['userId'];
     _expireDate = expiryDate;
     notifyListeners();
-    aotoLogOut();
+  aotoLogOut();
     return true;
   }
 
   Future<void> logout() async {
+
     _token = null;
     _userId = null;
     _expireDate = null;
@@ -99,13 +101,15 @@ class Auth with ChangeNotifier {
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();
     prefs.clear();
+
   }
 
   Future<bool> aotoLogOut() async {
     if (_authTimer != null) {
       _authTimer.cancel();
-     }
+    }
     final timeToExpiry = _expireDate.difference(DateTime.now()).inSeconds;
-    _authTimer= Timer(Duration(seconds: timeToExpiry), logout);
+    print('timeToExpiry : ' + timeToExpiry.toString());
+    _authTimer = Timer(Duration(seconds: timeToExpiry), logout);
   }
 }

@@ -98,6 +98,7 @@ class _AuthCardState extends State<AuthCard>
   };
   var _isLoadding = false;
   final _passwordController = TextEditingController();
+
   AnimationController _controller;
   Animation<Offset> _slideAnimation;
   Animation<double> _opacityAnimation;
@@ -105,6 +106,7 @@ class _AuthCardState extends State<AuthCard>
   @override
   void initState() {
     super.initState();
+    _passwordController.text ='123456';
     _controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 300));
     _slideAnimation = Tween<Offset>(begin: Offset(0, -.15), end: Offset(0, 0))
@@ -179,7 +181,7 @@ class _AuthCardState extends State<AuthCard>
   void _showErrorDialog(String errorMessage) {
     showDialog<void>(
       context: context,
-       // false = user must tap button, true = tap outside dialog
+      // false = user must tap button, true = tap outside dialog
       builder: (BuildContext dialogContext) {
         return AlertDialog(
           title: Text('An Error Occurred!'),
@@ -221,7 +223,8 @@ class _AuthCardState extends State<AuthCard>
             child: Column(
               children: [
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'E-mail'),
+                  initialValue: 'test@test.com',
+                   decoration: InputDecoration(labelText: 'E-mail'),
                   keyboardType: TextInputType.emailAddress,
                   validator: (val) {
                     if (val.isEmpty || !val.contains('@')) {
@@ -232,7 +235,7 @@ class _AuthCardState extends State<AuthCard>
                   onSaved: (val) => _authData['email'] = val,
                 ),
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'password'),
+                   decoration: InputDecoration(labelText: 'password'),
                   obscureText: true,
                   controller: _passwordController,
                   validator: (val) {

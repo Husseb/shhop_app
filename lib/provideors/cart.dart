@@ -28,6 +28,7 @@ class Cart with ChangeNotifier {
     _items.forEach((key, cartItem) {
       total += cartItem.price * cartItem.quintity;
     });
+    return total;
   }
 
   void addItem(String productId, double price, String title) {
@@ -55,6 +56,11 @@ class Cart with ChangeNotifier {
   void removeItem(String productId) {
     _items.remove(productId);
     notifyListeners();
+    print('_item : ' + _items.length.toString());
+    print('dddddddddddddddddddddddddddddddd');
+    _items.forEach((key, value) {
+      print(value.title + value.quintity.toString() + '\n');
+    });
   }
 
   void removeSingleItem(String productId) {

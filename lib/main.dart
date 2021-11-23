@@ -35,8 +35,8 @@ class MyApp extends StatelessWidget {
               ..getData(authvalue.token, authvalue.userId,
                   previousProduct == null ? null : previousProduct.items)),
 
-        ChangeNotifierProxyProvider<Auth, Order>(
-            create: (_) => Order(),
+        ChangeNotifierProxyProvider<Auth, Orders>(
+            create: (_) => Orders(),
             update: (context, authvalue, previousOrders) => previousOrders
               ..getData(authvalue.token, authvalue.userId,
                   previousOrders == null ? null : previousOrders.orders)),
@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
                 .copyWith(secondary: Colors.deepOrange),
           ),
-          home: auth.isAuth
+          home:     auth.isAuth
               ? ProductOverviewScreen()
               : FutureBuilder(
                   future: auth.tryAotoLogin(),

@@ -27,8 +27,8 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
     isloadding = true;
     Provider.of<Products>(context, listen: false)
         .fetchAndSetProduct()
-        .then((_) => setState(() => isloadding == false))
-        .catchError((error) => print(error));
+        .then((_) => setState(() => isloadding = false))
+        .catchError((error) =>isloadding = false);
   }
 
   @override
@@ -62,7 +62,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
             icon: Icon(Icons.more_vert),
           ),
           Consumer<Cart>(
-              child: IconButton(
+               child: IconButton(
                 icon: Icon(Icons.shopping_cart),
                 onPressed: () =>
                     Navigator.of(context).pushNamed(CartScreen.routName),

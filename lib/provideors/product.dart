@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 class Product with ChangeNotifier {
   final String id, title, description, imageUrl;
-  final double price;
+  final double  price;
   bool isFavorit;
 
   Product(
